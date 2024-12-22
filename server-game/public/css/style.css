@@ -1,0 +1,23 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+.user-info {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.chat-box {
+  background-color: #f1f1f1;
+  border-radius: 5px;
+}
+
+.emoji-list span {
+  font-size: 20px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.game-table {
+  margin-bottom: 15px;
+}

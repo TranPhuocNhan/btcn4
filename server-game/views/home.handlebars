@@ -1,0 +1,96 @@
+<h1 class="text-center">{{title}}</h1>
+
+<!-- Hiển thị thông tin người dùng -->
+{{#if user}}
+  <div class="user-info">
+    <h4>Xin chào, {{user.username}}</h4>
+    <img src="{{user.avatar}}" alt="" class="rounded-circle" width="100" height="100">
+    <p><strong>Email:</strong> {{user.email}}</p>
+  </div>
+{{else}}
+  <div class="alert alert-warning" role="alert">
+    Bạn chưa đăng nhập. <a href="/login" class="alert-link">Đăng nhập tại đây</a>.
+  </div>
+{{/if}}
+
+<!-- Danh sách người chơi online -->
+<h3>Người chơi online</h3>
+<ul class="list-group">
+  {{#each usersOnline}}
+    <li class="list-group-item">
+      <img src="{{this.avatar}}" alt="" class="rounded-circle" width="30" height="30">
+      {{this.username}}
+      <button class="btn btn-sm btn-primary float-right">Mời vào bàn</button>
+    </li>
+  {{/each}}
+</ul>
+
+
+<!-- Khung chat -->
+<h3>Chat chung</h3>
+<div class="chat-box border p-3">
+  <div id="messages">
+    {{#each messages}}
+      <div class="message">
+        <strong>{{this.user}}:</strong> {{this.text}}
+      </div>
+    {{/each}}
+  </div>
+
+  <textarea id="messageInput" class="form-control" rows="2" placeholder="Nhập tin nhắn"></textarea>
+
+  <!-- Emoji hỗ trợ -->
+  <div class="emoji-list mt-2">
+    <span class="emoji">😀</span>
+    <span class="emoji">😂</span>
+    <span class="emoji">😍</span>
+    <span class="emoji">😎</span>
+    <span class="emoji">😜</span>
+    <span class="emoji">😢</span>
+    <span class="emoji">😡</span>
+    <span class="emoji">😱</span>
+    <span class="emoji">🤔</span>
+    <span class="emoji">🤗</span>
+  </div>
+
+  <button id="sendMessage" class="btn btn-success mt-2">Gửi</button>
+</div>
+
+<!-- Danh sách các bàn game -->
+<h3>Bàn game</h3>
+<div class="game-tables">
+  {{#each gameTables}}
+    <div class="game-table border p-3 mt-2">
+      <p><strong>Bàn game {{this.name}}</strong></p>
+      <p><em>{{this.status}}</em></p>
+      <button class="btn btn-info" {{#if this.started}}disabled{{/if}}>Vào bàn</button>
+      {{#unless this.started}}
+        <button class="btn btn-primary">Tạo bàn mới</button>
+      {{/unless}}
+    </div>
+  {{/each}}
+</div>
+
+<script>
+  // Khi click vào một emoji, chèn vào ô nhập tin nhắn
+  document.querySelectorAll('.emoji').forEach(emoji => {
+    emoji.addEventListener('click', function () {
+      const messageInput = document.getElementById('messageInput');
+      messageInput.value += emoji.textContent; // Thêm emoji vào cuối ô nhập tin nhắn
+      messageInput.focus(); // Đảm bảo ô nhập tin nhắn vẫn được focus
+    });
+  });
+
+  // Gửi tin nhắn (ví dụ: sẽ gửi tin nhắn khi bấm vào nút gửi)
+  document.getElementById('sendMessage').addEventListener('click', function () {
+    const messageInput = document.getElementById('messageInput');
+    const messageText = messageInput.value.trim();
+    
+    if (messageText) {
+      // Gửi tin nhắn (Bạn có thể xử lý gửi tin nhắn qua socket hoặc gửi đến server)
+      console.log('Gửi tin nhắn:', messageText);
+      // Sau khi gửi tin nhắn, xóa nội dung trong ô nhập
+      messageInput.value = '';
+    }
+  });
+</script>

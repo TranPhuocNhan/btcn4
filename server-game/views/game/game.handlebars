@@ -1,0 +1,12 @@
+<h2>Game Board</h2>
+<div id="game-board">
+  {{#each board}}
+    <div class="row">
+      {{#each this}}
+        <div class="cell">{{this}}</div>
+      {{/each}}
+    </div>
+  {{/each}}
+</div>
+<p>Status: {{status}}</p>
+<p>Turn: {{turn}}</p>

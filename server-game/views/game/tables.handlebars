@@ -1,0 +1,12 @@
+<h2>Available Game Tables</h2>
+<button id="create-table">Create New Table</button>
+<div id="tables">
+  {{#each tables}}
+    <div>
+      <p>Table Name: {{name}}</p>
+      <p>Size: {{size}}</p>
+      <p>Status: {{status}}</p>
+      <a href="/game/{{id}}">Join</a>
+    </div>
+  {{/each}}
+</div>
